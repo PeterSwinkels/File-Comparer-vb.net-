@@ -27,8 +27,8 @@ Public Module CoreModule
                Console.WriteLine($"Usage: ""{ .AssemblyName}"" PATH1 PATH2")
             End With
          Else
-            Path1 = RemoveQuotes(Arguments.First().Trim()).Trim()
-            Path2 = RemoveQuotes(Arguments.Last().Trim()).Trim()
+            Path1 = Arguments.First().Trim(""""c).Trim()
+            Path2 = Arguments.Last().Trim(""""c).Trim()
             CompareFiles(Path1, Path2)
          End If
       Catch ExceptionO As Exception
@@ -57,20 +57,4 @@ Public Module CoreModule
          [Exit](0)
       End Try
    End Sub
-
-   'This procedure returns the specified text with any leading and trailing quote removed.
-   Private Function RemoveQuotes(Text As String) As String
-      Try
-         Dim Result As String = Text
-
-         If Result.StartsWith(""""c) Then Result = Result.Remove(0, 1)
-         If Result.EndsWith(""""c) Then Result = Result.Remove(Result.Length - 1, 1)
-
-         Return Result
-      Catch ExceptionO As Exception
-         DisplayException(ExceptionO)
-      End Try
-
-      Return Nothing
-   End Function
 End Module
